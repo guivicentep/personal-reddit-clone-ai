@@ -1,13 +1,13 @@
 'use client'
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 
 import ReddishLogo from '@/images/redish-full.png'
 import ReddishLogoOnly from '@/images/redish-logo-only.png'
 import Image from "next/image"
 import { ChevronLeftIcon, MenuIcon } from "lucide-react"
-import { useSidebar } from "./ui/sidebar"
+import { useSidebar } from "../ui/sidebar"
 
 function Header() {
   const { toggleSidebar, open, isMobile } = useSidebar()
