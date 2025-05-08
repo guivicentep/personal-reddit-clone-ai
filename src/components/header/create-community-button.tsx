@@ -15,6 +15,8 @@ import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import Image from "next/image"
 import { Button } from "../ui/button"
+import { createCommunity } from "../../../action/createCommunity"
+import { useRouter } from "next/navigation"
 
 function CreateCommunityButton() {
   const { user } = useUser()
@@ -27,6 +29,7 @@ function CreateCommunityButton() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -125,6 +128,7 @@ function CreateCommunityButton() {
         } else if ("subreddit" in result && result.subreddit) {
           setOpen(false)
           resetForm()
+          router.push(`/community/${result.subreddit.slug?.current}`)
         }
       } catch (error) {
         console.error("Failed to create community", error)
@@ -185,7 +189,7 @@ function CreateCommunityButton() {
                 required
                 minLength={3}
                 maxLength={21}
-                pattern="[a-z0-9-]+"
+                pattern="^[a-z0-9-]+$"
                 title="Lowercase letters, numbers, and hyphens only"
               />
               <p className="text-xs text-gray-500">
